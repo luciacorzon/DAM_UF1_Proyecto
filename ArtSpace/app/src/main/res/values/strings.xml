@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ArtSpace</string>
     <string name="app_description">Your online gallery for visual arts</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_gallery">Your\ngallery</string>
 </resources>
