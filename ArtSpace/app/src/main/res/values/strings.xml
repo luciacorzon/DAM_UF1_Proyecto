@@ -2,4 +2,5 @@
     <string name="app_name">ArtSpace</string>
     <string name="app_description">Your online gallery for visual arts</string>
     <string name="your_gallery">Your\ngallery</string>
+    <string name="online_gallery">Online\ngallery</string>
 </resources>
