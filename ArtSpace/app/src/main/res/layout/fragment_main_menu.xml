@@ -6,6 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainMenuFragment"
     android:id="@+id/mainMenuFragment"
+    android:background="@color/black"
+    android:padding="0dp"
     >
 
 
@@ -15,5 +17,7 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:scrollbars="vertical"
+        android:background="@color/black"
+        android:padding="0dp"
         tools:listitem="@layout/item_main_menu" />
 </LinearLayout>

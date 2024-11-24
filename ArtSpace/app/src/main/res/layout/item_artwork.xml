@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/darkGrey"
+    android:id="@+id/item_artwork_fragment"
+    app:cardCornerRadius="0dp"
+    android:padding="0dp"
+    android:layout_marginEnd="0dp"
+    app:strokeColor="@color/darkGrey">
+
+    <LinearLayout
+        android:id="@+id/item_artwork_card"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:orientation="vertical"
+        android:background="@color/darkGrey">
+
+        <ImageView
+            android:id="@+id/itemArtImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@color/black"
+            android:src="@drawable/perla" />
+
+        <TextView
+            android:id="@+id/itemArtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="start"
+            android:text="@string/art_name"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/itemArtAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="start"
+            android:text="@string/author"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="10dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

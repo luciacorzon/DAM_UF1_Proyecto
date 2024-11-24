@@ -1,29 +1,28 @@
 package com.example.artspace.adapter
 
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.artspace.MainMenuFragment
 import com.example.artspace.R
+import com.example.artspace.SecondaryMenuFragment
 import com.example.artspace.model.MenuItem
 
-class MainMenuAdapter(
-    private val context: MainMenuFragment,
+class SecondaryMenuAdapter(
+    private val context: SecondaryMenuFragment,
     private val dataset: List<MenuItem>,
-) : RecyclerView.Adapter<MainMenuAdapter.ItemViewHolder>() {
+) : RecyclerView.Adapter<SecondaryMenuAdapter.ItemViewHolder>() {
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.menuItemText)
-        val imageView: ImageView = view.findViewById(R.id.menuItemImage)
+        val textView: TextView = view.findViewById(R.id.secItemText)
+        val imageView: ImageView = view.findViewById(R.id.secItemImage)
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val adapterView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_main_menu, parent, false)
+            .inflate(R.layout.item_secondary_menu, parent, false)
         return ItemViewHolder(adapterView)
     }
 
@@ -35,14 +34,5 @@ class MainMenuAdapter(
         val view = dataset[position]
         holder.textView.text = context.resources.getString(view.nameRes)
         holder.imageView.setImageResource(view.imageRes)
-
-        // Cambiar la gravedad del texto dependiendo de la posición
-        if (position % 2 == 0) {
-            // Alinear el texto a la izquierda para ítems en posiciones pares
-            holder.textView.gravity = Gravity.START
-        } else {
-            // Alinear el texto a la derecha para ítems en posiciones impares
-            holder.textView.gravity = Gravity.END
-        }
     }
 }

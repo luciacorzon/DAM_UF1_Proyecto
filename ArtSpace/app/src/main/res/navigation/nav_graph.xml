@@ -18,5 +18,19 @@
         android:id="@+id/mainMenuFragment2"
         android:name="com.example.artspace.MainMenuFragment"
         android:label="fragment_main_menu"
-        tools:layout="@layout/fragment_main_menu" />
+        tools:layout="@layout/fragment_main_menu" >
+        <action
+            android:id="@+id/action_mainMenuFragment2_to_secondaryMenuFragment"
+            app:destination="@id/secondaryMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondaryMenuFragment"
+        android:name="com.example.artspace.SecondaryMenuFragment"
+        android:label="fragment_secondary_menu"
+        tools:layout="@layout/fragment_secondary_menu" />
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.example.artspace.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" />
 </navigation>
