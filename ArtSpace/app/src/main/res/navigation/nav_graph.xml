@@ -22,15 +22,31 @@
         <action
             android:id="@+id/action_mainMenuFragment2_to_secondaryMenuFragment"
             app:destination="@id/secondaryMenuFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment2_to_galleryFragment"
+            app:destination="@id/galleryFragment" />
     </fragment>
     <fragment
         android:id="@+id/secondaryMenuFragment"
         android:name="com.example.artspace.SecondaryMenuFragment"
         android:label="fragment_secondary_menu"
-        tools:layout="@layout/fragment_secondary_menu" />
+        tools:layout="@layout/fragment_secondary_menu" >
+        <action
+            android:id="@+id/action_secondaryMenuFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/galleryFragment"
         android:name="com.example.artspace.GalleryFragment"
         android:label="fragment_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_galleryFragment_to_artworkFragment"
+            app:destination="@id/artworkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/artworkFragment"
+        android:name="com.example.artspace.ArtworkFragment"
+        android:label="fragment_artwork"
+        tools:layout="@layout/fragment_artwork" />
 </navigation>
