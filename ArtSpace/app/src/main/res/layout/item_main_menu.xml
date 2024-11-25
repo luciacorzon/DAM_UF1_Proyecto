@@ -7,9 +7,9 @@
     <ImageView
         android:id="@+id/menuItemImage"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/your_gallery"
+        android:src="@drawable/collage"
         app:layout_constraintHeight_percent="1.0"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,6 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        app:layout_goneMarginTop="40dp"
+        android:padding="20dp"
         android:text="@string/your_gallery"
         android:textColor="@color/white"
         android:textSize="60sp"
@@ -30,33 +32,4 @@
         android:layout_marginTop="60dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--<?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/menuItemImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="0dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/your_gallery" />
-
-        <TextView
-            android:id="@+id/menuItemText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="60dp"
-            android:padding="20dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:gravity="start"
-            android:text="@string/your_gallery"
-            android:textColor="@color/white"
-            android:textSize="60sp"
-            android:textStyle="bold" />
-
-    </FrameLayout>-->
 

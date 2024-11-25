@@ -3,9 +3,9 @@
     <string name="app_name">ArtSpace</string>
     <string name="touch_screen_text">Toca la pantalla para comenzar</string>
     <string name="dot">·</string>
-    <string name="photography">Fotografía</string>
-    <string name="sculpture">Escultura</string>
-    <string name="paint">Pintura</string>
+    <string name="photography">FOTOGRAFÍA</string>
+    <string name="sculpture">ESCULTURA</string>
+    <string name="paint">PINTURA</string>
     <string name="app_description">Tu galería online de arte visual</string>
     <string name="your_gallery">Tu\ngalería</string>
     <string name="online_gallery">Galería\nonline</string>

@@ -1,5 +1,6 @@
 package com.example.artspace.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,19 +9,24 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.artspace.GalleryFragment
 import com.example.artspace.R
+import com.example.artspace.databinding.ItemArtworkBinding
+import com.example.artspace.decorations.BottomBorderDecoration
 import com.example.artspace.model.ArtworkItem
 
 class GalleryAdapter(private val artworkList: List<ArtworkItem>) :
-    RecyclerView.Adapter<GalleryAdapter.ItemViewHolder>(){
-    class ItemViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
-        val artworkImage: ImageView = itemView.findViewById(R.id.itemArtImage)
-        val artworkName: TextView = itemView.findViewById(R.id.itemArtTitle)
-        val artworkAuthor: TextView = itemView.findViewById(R.id.itemArtAuthor)
+    RecyclerView.Adapter<GalleryAdapter.ItemViewHolder>() {
+
+    // ViewHolder que usa ViewBinding
+    class ItemViewHolder(private val binding: ItemArtworkBinding) : RecyclerView.ViewHolder(binding.root) {
+        val artworkImage = binding.itemArtImage
+        val artworkName = binding.itemArtTitle
+        val artworkAuthor = binding.itemArtAuthor
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_artwork, parent, false)
-        return ItemViewHolder(view)
+        // Inflamos el layout usando ViewBinding
+        val binding = ItemArtworkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -32,6 +38,5 @@ class GalleryAdapter(private val artworkList: List<ArtworkItem>) :
         holder.artworkImage.setImageResource(artworkItem.artImageRes)
         holder.artworkName.text = holder.itemView.context.getString(artworkItem.artNameRes)
         holder.artworkAuthor.text = holder.itemView.context.getString(artworkItem.artAuthorRes)
-
     }
 }

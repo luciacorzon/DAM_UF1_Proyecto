@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.artspace.adapter.MainMenuAdapter
 import com.example.artspace.adapter.SecondaryMenuAdapter
 import com.example.artspace.data.MainMenuData
@@ -27,6 +29,12 @@ class SecondaryMenuFragment : Fragment(R.layout.item_secondary_menu) {
         val recyclerView = binding.secondaryRecycler
 
         recyclerView.adapter = SecondaryMenuAdapter(this, dataset)
+
+        //AÑADIDO
+        val gridLayoutManager = GridLayoutManager(context, 3) // Dos filas
+        gridLayoutManager.orientation = RecyclerView.HORIZONTAL
+        recyclerView.layoutManager = gridLayoutManager
+
         recyclerView.setHasFixedSize(true)
 
         return binding.root

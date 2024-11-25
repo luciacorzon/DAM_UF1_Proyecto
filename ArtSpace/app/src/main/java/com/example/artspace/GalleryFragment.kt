@@ -1,5 +1,6 @@
 package com.example.artspace
 
+import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -12,12 +13,14 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.artspace.adapter.GalleryAdapter
 import com.example.artspace.data.ArtData
 import com.example.artspace.databinding.FragmentGalleryBinding
+import com.example.artspace.decorations.BottomBorderDecoration
 import com.example.artspace.model.ArtworkItem
 
 class GalleryFragment : Fragment(R.layout.fragment_gallery) {
-    // Declaramos el binding
+
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var artworkList:ArrayList<ArtworkItem>
     private lateinit var galleryAdapter: GalleryAdapter
@@ -37,7 +40,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
     private fun init(){
         artworkList = ArrayList()
         recyclerView = binding.galleryRecycler
-       // recyclerView.hasFixedSize(true)
+        // recyclerView.hasFixedSize(true)
         recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
 

@@ -1,5 +1,6 @@
 package com.example.artspace
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.artspace.adapter.MainMenuAdapter
 import com.example.artspace.databinding.FragmentMainMenuBinding
 import com.example.artspace.data.MainMenuData
+import com.example.artspace.decorations.BottomBorderDecoration
 import com.example.artspace.model.MenuItem
 
 class MainMenuFragment : Fragment(R.layout.fragment_main_menu) {
@@ -28,17 +31,19 @@ class MainMenuFragment : Fragment(R.layout.fragment_main_menu) {
        val dataset = MainMenuData().LoadMenuItem()
         val recyclerView = binding.mainRecycler
 
-        //recyclerView.adapter = MainMenuAdapter(this, dataset)
-
-        //AÑADIDO
-        val gridLayoutManager = GridLayoutManager(context, 1)  // 1 columna (vertical)
+        val gridLayoutManager = GridLayoutManager(context, 2) // Dos filas
+        gridLayoutManager.orientation = RecyclerView.HORIZONTAL
         recyclerView.layoutManager = gridLayoutManager
-
 
         recyclerView.adapter = MainMenuAdapter(this, dataset) { item ->
             // Aquí manejas el clic en el ítem, según el id o el tipo de ítem
             onMenuItemClicked(item)
         }
+
+        //AÑADIDO
+        val bottomBorderDecoration = BottomBorderDecoration(Color.GREEN, 4)
+        recyclerView.addItemDecoration(bottomBorderDecoration)
+
 
         recyclerView.setHasFixedSize(true)
 

@@ -3,9 +3,9 @@
     <string name="touch_screen_text">Touch the screen to start</string>
     <string name="dot">·</string>
     <string name="app_description">Your online gallery for visual arts</string>
-    <string name="photography">Photography</string>
-    <string name="sculpture">Sculpture</string>
-    <string name="paint">Paint</string>
+    <string name="photography">PHOTOGRAPHY</string>
+    <string name="sculpture">SCULPTURE</string>
+    <string name="paint">PAINTING</string>
     <string name="your_gallery">Your\ngallery</string>
     <string name="online_gallery">Online\ngallery</string>
     <string name="art_name">Girl with a pearl earring</string>
