@@ -1,11 +1,14 @@
 package com.example.artspace.adapter
 
+import android.print.PrintAttributes.Margins
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
 import androidx.recyclerview.widget.RecyclerView
 import com.example.artspace.MainMenuFragment
 import com.example.artspace.R
@@ -40,10 +43,10 @@ class MainMenuAdapter(
         // Cambiar la gravedad del texto dependiendo de la posición
         if (position % 2 == 0) {
             // Alinear el texto a la izquierda para ítems en posiciones pares
-            holder.textView.gravity = Gravity.START
+            holder.textView.gravity = Gravity.END
         } else {
             // Alinear el texto a la derecha para ítems en posiciones impares
-            holder.textView.gravity = Gravity.END
+            holder.textView.gravity = Gravity.START
         }
 
         holder.itemView.setOnClickListener {

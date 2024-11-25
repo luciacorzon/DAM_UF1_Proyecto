@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.artspace.adapter.MainMenuAdapter
 import com.example.artspace.databinding.FragmentMainMenuBinding
 import com.example.artspace.data.MainMenuData
@@ -30,6 +31,10 @@ class MainMenuFragment : Fragment(R.layout.fragment_main_menu) {
         //recyclerView.adapter = MainMenuAdapter(this, dataset)
 
         //AÑADIDO
+        val gridLayoutManager = GridLayoutManager(context, 1)  // 1 columna (vertical)
+        recyclerView.layoutManager = gridLayoutManager
+
+
         recyclerView.adapter = MainMenuAdapter(this, dataset) { item ->
             // Aquí manejas el clic en el ítem, según el id o el tipo de ítem
             onMenuItemClicked(item)
