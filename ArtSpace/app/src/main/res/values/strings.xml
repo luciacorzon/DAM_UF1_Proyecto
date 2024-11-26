@@ -3,6 +3,12 @@
     <string name="touch_screen_text">Touch the screen to start</string>
     <string name="dot">·</string>
     <string name="app_description">Your online gallery for visual arts</string>
+    <string name="login">Log into your account or create one</string>
+    <string name="loginBtn">Log in</string>
+    <string name="user_name">User name</string>
+    <string name="password">Password</string>
+    <string name="toastPassword">Incorrect password</string>
+    <string name="toastEmpty">Please, enter a username and a password</string>
     <string name="photography">PHOTOGRAPHY</string>
     <string name="sculpture">SCULPTURE</string>
     <string name="paint">PAINTING</string>

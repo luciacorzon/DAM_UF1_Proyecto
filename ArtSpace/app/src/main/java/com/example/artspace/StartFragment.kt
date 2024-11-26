@@ -19,10 +19,8 @@ class StartFragment : Fragment(R.layout.fragment_start) {
     ): View? {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
-        // Detecta un toque en cualquier parte de la vista y navega al siguiente fragmento
         binding.root.setOnClickListener {
-            // Aquí navegas al siguiente fragmento cuando tocas en cualquier parte
-            findNavController().navigate(R.id.action_startFragment_to_mainMenuFragment2)
+            findNavController().navigate(R.id.action_startFragment_to_registrationFragment)
         }
 
         return binding.root

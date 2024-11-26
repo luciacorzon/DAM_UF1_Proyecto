@@ -11,8 +11,8 @@
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
-            android:id="@+id/action_startFragment_to_mainMenuFragment2"
-            app:destination="@id/mainMenuFragment2" />
+            android:id="@+id/action_startFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainMenuFragment2"
@@ -49,4 +49,13 @@
         android:name="com.example.artspace.ArtworkFragment"
         android:label="fragment_artwork"
         tools:layout="@layout/fragment_artwork" />
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.artspace.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_mainMenuFragment2"
+            app:destination="@id/mainMenuFragment2" />
+    </fragment>
 </navigation>

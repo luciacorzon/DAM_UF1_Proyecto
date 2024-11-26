@@ -2,6 +2,12 @@
 <resources>
     <string name="app_name">ArtSpace</string>
     <string name="touch_screen_text">Toca la pantalla para comenzar</string>
+    <string name="login">Entra en tu cuenta o crea una</string>
+    <string name="loginBtn">Iniciar sesión</string>
+    <string name="user_name">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="toastPassword">La contraseña no coincide con la registrada</string>
+    <string name="toastEmpty">Por favor, ingresa un nombre de usuario y una contraseña</string>
     <string name="dot">·</string>
     <string name="photography">FOTOGRAFÍA</string>
     <string name="sculpture">ESCULTURA</string>
