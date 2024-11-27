@@ -13,8 +13,10 @@ import com.example.artspace.databinding.ItemArtworkBinding
 import com.example.artspace.decorations.BottomBorderDecoration
 import com.example.artspace.model.ArtworkItem
 
-class GalleryAdapter(private val artworkList: List<ArtworkItem>) :
-    RecyclerView.Adapter<GalleryAdapter.ItemViewHolder>() {
+class GalleryAdapter(
+    private val artworkList: List<ArtworkItem>,
+    private val onItemClick: (ArtworkItem) -> Unit // Callback para manejar el clic
+) : RecyclerView.Adapter<GalleryAdapter.ItemViewHolder>() {
 
     // ViewHolder que usa ViewBinding
     class ItemViewHolder(private val binding: ItemArtworkBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -38,5 +40,10 @@ class GalleryAdapter(private val artworkList: List<ArtworkItem>) :
         holder.artworkImage.setImageResource(artworkItem.artImageRes)
         holder.artworkName.text = holder.itemView.context.getString(artworkItem.artNameRes)
         holder.artworkAuthor.text = holder.itemView.context.getString(artworkItem.artAuthorRes)
+
+        // Establecer el clic en el ítem
+        holder.itemView.setOnClickListener {
+            onItemClick(artworkItem) // Llamar al callback cuando se hace clic
+        }
     }
 }

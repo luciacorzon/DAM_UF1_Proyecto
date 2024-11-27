@@ -46,11 +46,12 @@
                 android:layout_height="wrap_content"
                 android:background="@color/darkGrey"
                 app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp">
 
                     <TextView
                         android:id="@+id/art_name"
@@ -58,10 +59,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:ellipsize="end"
-                        android:maxLines="2"
+                        android:maxLines="5"
                         android:text="@string/art_name"
                         android:textColor="@color/white"
-                        android:textSize="34sp"
+                        android:textSize="37sp"
                         app:layout_constraintEnd_toStartOf="@+id/fab_favorite"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -84,14 +85,18 @@
                     <!-- FloatingActionButton -->
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab_favorite"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="20dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="10dp"
+                        android:padding="0dp"
                         android:contentDescription="@string/favorite_button"
+                        android:gravity="center"
                         app:backgroundTint="@color/white"
+                        app:fabSize="normal"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+                        app:layout_constraintTop_toTopOf="@id/art_name"
+                        app:srcCompat="@drawable/ic_baseline_favorite_border_40"
+                        app:tint="@color/red" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -105,6 +110,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -116,7 +123,7 @@
                     android:lineSpacingMultiplier="1.5"
                     android:text="@string/country"
                     android:textColor="@color/lightGrey"
-                    android:textSize="17sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -137,12 +144,14 @@
                     android:lineSpacingMultiplier="1.5"
                     android:text="@string/year"
                     android:textColor="@color/lightGrey"
-                    android:textSize="17sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
                 android:justificationMode="inter_word"
                 android:lineSpacingMultiplier="1.5"
                 android:padding="20dp"
