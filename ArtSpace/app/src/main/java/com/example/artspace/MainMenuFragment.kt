@@ -25,7 +25,6 @@ class MainMenuFragment : Fragment(R.layout.fragment_main_menu) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflamos el layout con ViewBinding
         _binding = FragmentMainMenuBinding.inflate(inflater, container, false)
 
        val dataset = MainMenuData().LoadMenuItem()
@@ -36,7 +35,6 @@ class MainMenuFragment : Fragment(R.layout.fragment_main_menu) {
         recyclerView.layoutManager = gridLayoutManager
 
         recyclerView.adapter = MainMenuAdapter(this, dataset) { item ->
-            // Aquí manejas el clic en el ítem, según el id o el tipo de ítem
             onMenuItemClicked(item)
         }
 

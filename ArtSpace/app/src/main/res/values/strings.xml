@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ArtSpace</string>
     <string name="touch_screen_text">Touch the screen to start</string>
+    <string name="favorite_button">Favourite button</string>
     <string name="dot">·</string>
     <string name="app_description">Your online gallery for visual arts</string>
     <string name="login">Log into your account or create one</string>

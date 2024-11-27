@@ -48,29 +48,55 @@
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="vertical"
-                    android:padding="0dp">
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/art_name"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
                         android:text="@string/art_name"
                         android:textColor="@color/white"
-                        android:textSize="34sp" />
+                        android:textSize="34sp"
+                        app:layout_constraintEnd_toStartOf="@+id/fab_favorite"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.8" />
+
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/author"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="@string/author"
                         android:textColor="@color/white"
-                        android:textSize="24sp" />
-                </LinearLayout>
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toStartOf="@+id/fab_favorite"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/art_name"
+                        app:layout_constraintWidth_percent="0.8" />
+
+                    <!-- FloatingActionButton -->
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fab_favorite"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/favorite_button"
+                        app:backgroundTint="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </com.google.android.material.appbar.MaterialToolbar>
+
 
             <!--<androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -84,31 +110,31 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:lineSpacingMultiplier="1.5"
                     android:layout_marginStart="20dp"
-                    android:text="@string/country"
                     android:layout_marginTop="25dp"
                     android:layout_marginRight="0dp"
+                    android:lineSpacingMultiplier="1.5"
+                    android:text="@string/country"
                     android:textColor="@color/lightGrey"
                     android:textSize="17sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="25dp"
                     android:lineSpacingMultiplier="1.5"
                     android:text="@string/dot"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginLeft="8dp"
                     android:textColor="@color/lightGrey"
                     android:textSize="17sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="25dp"
                     android:justificationMode="inter_word"
                     android:lineSpacingMultiplier="1.5"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginLeft="5dp"
                     android:text="@string/year"
                     android:textColor="@color/lightGrey"
                     android:textSize="17sp" />
@@ -127,3 +153,4 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
