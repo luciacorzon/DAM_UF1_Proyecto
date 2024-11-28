@@ -51,7 +51,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp">
+                    android:layout_marginRight="8dp">
 
                     <TextView
                         android:id="@+id/art_name"
@@ -65,8 +65,7 @@
                         android:textSize="37sp"
                         app:layout_constraintEnd_toStartOf="@+id/fab_favorite"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.8" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                     <TextView
@@ -79,23 +78,21 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toStartOf="@+id/fab_favorite"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/art_name"
-                        app:layout_constraintWidth_percent="0.8" />
+                        app:layout_constraintTop_toBottomOf="@id/art_name" />
 
                     <!-- FloatingActionButton -->
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab_favorite"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_margin="10dp"
-                        android:padding="0dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:contentDescription="@string/favorite_button"
                         android:gravity="center"
-                        app:backgroundTint="@color/white"
-                        app:fabSize="normal"
+                        app:backgroundTint="@android:color/transparent"
+                        app:fabSize="mini"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/art_name"
-                        app:srcCompat="@drawable/ic_baseline_favorite_border_40"
+                        app:maxImageSize="40dp"
+                        app:srcCompat="@drawable/baseline_favorite_border_24"
                         app:tint="@color/red" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -110,7 +107,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
+                android:layout_marginStart="0dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
@@ -129,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="27dp"
                     android:lineSpacingMultiplier="1.5"
                     android:text="@string/dot"
                     android:textColor="@color/lightGrey"
@@ -150,8 +147,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:layout_marginEnd="7dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
                 android:justificationMode="inter_word"
                 android:lineSpacingMultiplier="1.5"
                 android:padding="20dp"
@@ -162,4 +159,6 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+<!--app:layout_constraintWidth_percent="0.8"-->
 
