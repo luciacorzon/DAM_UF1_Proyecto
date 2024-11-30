@@ -1,24 +1,20 @@
 package com.example.artspace.adapter
 
-import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.artspace.GalleryFragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.artspace.R
 import com.example.artspace.databinding.ItemArtworkBinding
-import com.example.artspace.decorations.BottomBorderDecoration
-import com.example.artspace.model.ArtworkItem
+import com.example.artspace.model.ArtModel
 
 class GalleryAdapter(
-    private val artworkList: List<ArtworkItem>,
-    private val onItemClick: (ArtworkItem) -> Unit // Callback para manejar el clic
+    private val artList: List<ArtModel>,
+    private val onItemClick: (ArtModel) -> Unit
 ) : RecyclerView.Adapter<GalleryAdapter.ItemViewHolder>() {
 
-    // ViewHolder que usa ViewBinding
     class ItemViewHolder(private val binding: ItemArtworkBinding) : RecyclerView.ViewHolder(binding.root) {
         val artworkImage = binding.itemArtImage
         val artworkName = binding.itemArtTitle
@@ -26,24 +22,41 @@ class GalleryAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        // Inflamos el layout usando ViewBinding
         val binding = ItemArtworkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return artworkList.size
+        return artList.size
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val artworkItem = artworkList[position]
-        holder.artworkImage.setImageResource(artworkItem.artImageRes)
-        holder.artworkName.text = holder.itemView.context.getString(artworkItem.artNameRes)
-        holder.artworkAuthor.text = holder.itemView.context.getString(artworkItem.artAuthorRes)
+        val artItem = artList[position]
+        Log.d("GalleryAdapter", "Cargando imagen desde URL: ${artItem.webImage?.url}")
+        // Cargar la imagen desde la URL usando Glide
+        Glide.with(holder.itemView.context)
+            .load(artItem.webImage?.url) // Usar art.webImage?.url
+            .override(800, 600)  // Redimensiona la imagen a 800x600, pero mantiene la proporción
+            .fitCenter()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .skipMemoryCache(false)
+            .placeholder(R.drawable.loading)
+            .error(R.drawable.loading)
+            .into(holder.artworkImage)
+        /*
+        Glide.with(holder.itemView.context)
+            .load("qEnlrp5MyHgLIVvrQR3HYtMBhQaLsxCmhBB15DCxX07l_rAvKqjKAXgCkgigYYxA2hGls9riG6Xfn_K_V5_GMfd_0bE") // URL de prueba
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .placeholder(R.drawable.loading)
+            .error(R.drawable.loading)
+            .into(holder.artworkImage)*/
 
-        // Establecer el clic en el ítem
+        holder.artworkName.text = artItem.title
+        holder.artworkAuthor.text = artItem.author
+
         holder.itemView.setOnClickListener {
-            onItemClick(artworkItem) // Llamar al callback cuando se hace clic
+            onItemClick(artItem)
         }
     }
 }

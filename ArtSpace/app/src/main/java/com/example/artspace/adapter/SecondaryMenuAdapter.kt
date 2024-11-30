@@ -13,11 +13,11 @@ import com.example.artspace.model.MenuItem
 class SecondaryMenuAdapter(
     private val context: SecondaryMenuFragment,
     private val dataset: List<MenuItem>,
+    private val onMenuItemClick: (String) -> Unit // Callback para manejar el clic
 ) : RecyclerView.Adapter<SecondaryMenuAdapter.ItemViewHolder>() {
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.secItemText)
         val imageView: ImageView = view.findViewById(R.id.secItemImage)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -34,5 +34,11 @@ class SecondaryMenuAdapter(
         val view = dataset[position]
         holder.textView.text = context.resources.getString(view.nameRes)
         holder.imageView.setImageResource(view.imageRes)
+
+        // Maneja el clic en el item
+        holder.itemView.setOnClickListener {
+            onMenuItemClick(context.resources.getString(view.nameRes)) // Pasa el nombre del item
+        }
     }
 }
+

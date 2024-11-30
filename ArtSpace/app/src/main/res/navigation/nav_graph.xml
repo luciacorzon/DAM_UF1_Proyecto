@@ -33,13 +33,20 @@
         tools:layout="@layout/fragment_secondary_menu" >
         <action
             android:id="@+id/action_secondaryMenuFragment_to_galleryFragment"
-            app:destination="@id/galleryFragment" />
+            app:destination="@id/galleryFragment">
+        <argument
+            android:name="category"
+            app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/galleryFragment"
         android:name="com.example.artspace.GalleryFragment"
         android:label="fragment_gallery"
         tools:layout="@layout/fragment_gallery" >
+        <argument
+            android:name="category"
+            app:argType="string"/>
         <action
             android:id="@+id/action_galleryFragment_to_artworkFragment"
             app:destination="@id/artworkFragment" />

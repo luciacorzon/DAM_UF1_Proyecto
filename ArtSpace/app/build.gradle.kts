@@ -51,6 +51,15 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.8.4")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.appcompat:appcompat-resources:1.7.0")
+    //ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.google.code.gson:gson:2.11.0")
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.15.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
