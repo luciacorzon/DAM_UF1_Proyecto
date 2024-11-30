@@ -3,9 +3,8 @@ package com.example.artspace.model
 import com.google.gson.annotations.SerializedName
 
 data class ArtModel(
-    @SerializedName("objectNumber")  // Cambié el nombre aquí
+    @SerializedName("objectNumber")
     var objectNumber: String,
-
 
     @SerializedName("title")
     var title: String,
@@ -16,15 +15,15 @@ data class ArtModel(
     @SerializedName("webImage")
     var webImage: WebImage?,
 
-    @SerializedName("description")  // Descripción de la obra
+    @SerializedName("description")
     var description: String?,
 
-    @SerializedName("materials")  // Materiales utilizados en la obra
+    @SerializedName("materials")
     var materials: List<String>?,
 
-    @SerializedName("techniques")  // Técnicas utilizadas en la obra
+    @SerializedName("techniques")
     var techniques: List<String>?,
 
-    @SerializedName("objectTypes")  // Tipos de objeto (e.g. photograph, sculpture)
+    @SerializedName("objectTypes")
     var objectTypes: List<String>?,
 )

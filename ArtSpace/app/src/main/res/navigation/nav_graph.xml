@@ -55,7 +55,11 @@
         android:id="@+id/artworkFragment"
         android:name="com.example.artspace.ArtworkFragment"
         android:label="fragment_artwork"
-        tools:layout="@layout/fragment_artwork" />
+        tools:layout="@layout/fragment_artwork">
+        <argument
+            android:name="artId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.example.artspace.RegistrationFragment"

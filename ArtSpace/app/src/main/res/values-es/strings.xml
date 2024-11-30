@@ -20,11 +20,9 @@
     <string name="author">Johannes Vermeer</string>
     <string name="country">Países Bajos</string>
     <string name="year">1665</string>
-    <string name="description">La joven de la perla, pintada por el artista holandés Johannes Vermeer alrededor de 1665, es una de las obras de arte más intrigantes y celebradas del mundo. Conocida a menudo como la "Mona Lisa del Norte", el encanto del cuadro radica no solo en el atractivo de su sujeto, sino también en el misterio que rodea su identidad y la intención del pintor.
-
-    La joven en la pintura está representada con un gran pendiente de perla, una prenda de tonos azules y amarillos, y una expresión enigmática. La joven mira por encima de su hombro con la cabeza ligeramente girada, sus ojos encontrando directamente la mirada del espectador, lo que provoca una sensación de intimidad y misterio. La suave iluminación sobre su rostro y el contraste con el fondo oscuro destacan la notable habilidad de Vermeer para capturar las sutilezas de la luz y la textura, una característica distintiva de su obra.
-
-    Lo que hace única La joven de la perla es que no es un retrato tradicional, sino un "tronie", un género que se enfoca en expresar emociones exageradas a través de la expresión facial y el vestuario, mostrando la destreza técnica del artista más que la representación de una persona identificable. Esto permite al espectador disfrutar de la belleza y la maestría de la pintura sin necesidad de un contexto o narrativa.
-
-        La identidad de la joven sigue siendo un tema de debate, con teorías que sugieren que podría ser una modelo local, una sirvienta o incluso una figura imaginada por Vermeer. Sin embargo, es su presencia atemporal y universal en la pintura lo que sigue resonando con el público hoy en día. La simplicidad y elegancia de la imagen, junto con el atractivo de lo desconocido, convierten a esta obra en una verdadera e inolvidable obra maestra.</string>
+    <string name="description">La joven de la perla, pintada por el artista holandés Johannes Vermeer alrededor de 1665, es …</string>
+    <string name="unknown">Desconocido</string>
+    <string name="not_available">No disponible aún.</string>
+    <string name="unknown_year">Año desconocido</string>
+    <string name="unknown_country">País desconocido</string>
 </resources>

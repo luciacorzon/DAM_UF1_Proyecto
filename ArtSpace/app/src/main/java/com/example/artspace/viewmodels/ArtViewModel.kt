@@ -4,25 +4,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.artspace.R
 import com.example.artspace.core.Constants
 import com.example.artspace.model.ArtModel
+import com.example.artspace.model.DetailedArtworkModel
 import com.example.artspace.network.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ArtViewModel: ViewModel() {
-    //singular
     private val artList = MutableLiveData<List<ArtModel>>()
-    //plural
     val artworksList: MutableLiveData<List<ArtModel>> = artList
+
+    private val _artworkDetails = MutableLiveData<DetailedArtworkModel?>()
+    val artworkDetails: LiveData<DetailedArtworkModel?> get() = _artworkDetails
+
+
+
 
     fun getAllPaintings(){
         viewModelScope.launch(Dispatchers.IO){
             val response = RetrofitClient.webService.getArtworks(
                 apiKey = Constants.API_KEY,
-                type = "painting", // Tipo de obra
-                pageSize = 10      // Número de resultados por página
+                type = "painting",
+                pageSize = 300
             )
             withContext(Dispatchers.Main){
                 artworksList.value = response.body()!!.artObjects.sortedBy {it.title}
@@ -34,8 +40,8 @@ class ArtViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO){
             val response = RetrofitClient.webService.getArtworks(
                 apiKey = Constants.API_KEY,
-                type = "sculpture", // Tipo de obra
-                pageSize = 10      // Número de resultados por página
+                type = "sculpture",
+                pageSize = 300
             )
             withContext(Dispatchers.Main){
                 artworksList.value = response.body()!!.artObjects.sortedBy {it.title}
@@ -45,27 +51,50 @@ class ArtViewModel: ViewModel() {
 
     fun getAllPhotos(){
         viewModelScope.launch(Dispatchers.IO){
-            // Realiza la consulta a la API
             val response = RetrofitClient.webService.getArtworks(
                 apiKey = Constants.API_KEY,
-                type = "photograph",  // Tipo de obra
-                pageSize = 100  // Número de resultados por página
+                type = "photograph",
+                pageSize = 300
             )
 
-            // Filtrar los objetos artísticos en el hilo principal
             withContext(Dispatchers.Main){
-                // Filtrar solo las fotografías artísticas basadas en el título o la descripción
-                /*val filteredArtworks = response.body()?.artObjects?.filter { artObject ->
-                    // Filtra por título, descripción o cualquier otro campo relevante
-                    artObject.title.contains("artistic", ignoreCase = true) ||
-                            artObject.description?.contains("art", ignoreCase = true) == true ||
-                            artObject.objectTypes?.contains("photograph") ?: false// Puedes refinar según el tipo
-                }
-
-                // Actualiza la lista de resultados filtrados
-                artworksList.value = filteredArtworks?.sortedBy { it.title }*/
                 artworksList.value = response.body()!!.artObjects.sortedBy {it.title}
             }
         }
     }
+
+    fun getArtworkDetails(artId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = RetrofitClient.webService.getArtworkDetails(
+                    apiKey = Constants.API_KEY,
+                    artId = artId
+                )
+
+                if (response.isSuccessful) {
+                    val artwork = response.body()?.artObject
+                    if (artwork != null) {
+                        val year = artwork.dating?.year ?: R.string.unknown_year
+                        val country = artwork.productionPlaces?.firstOrNull() ?: R.string.unknown_country
+
+                        withContext(Dispatchers.Main) {
+                            _artworkDetails.value = artwork
+                        }
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        _artworkDetails.value = null
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    _artworkDetails.value = null
+                }
+            }
+        }
+    }
+
+
+
+
 }

@@ -92,11 +92,16 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
     private fun updateRecyclerView(artList: List<ArtModel>) {
         // Configurar el adaptador con la lista actualizada
         galleryAdapter = GalleryAdapter(artList) { artItem ->
-            // Navegar al detalle al hacer clic en un ítem
-            findNavController().navigate(R.id.action_galleryFragment_to_artworkFragment)
+            // Crear un Bundle y poner el 'artId' como argumento
+            val bundle = Bundle()
+            bundle.putString("artId", artItem.objectNumber) // Pasa el 'artId' al Bundle
+
+            // Navegar al ArtworkFragment pasando el Bundle
+            findNavController().navigate(R.id.action_galleryFragment_to_artworkFragment, bundle)
         }
         binding.galleryRecycler.adapter = galleryAdapter
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

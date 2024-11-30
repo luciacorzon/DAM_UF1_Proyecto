@@ -1,6 +1,5 @@
 package com.example.artspace.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -32,25 +31,15 @@ class GalleryAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val artItem = artList[position]
-        Log.d("GalleryAdapter", "Cargando imagen desde URL: ${artItem.webImage?.url}")
-        // Cargar la imagen desde la URL usando Glide
+
         Glide.with(holder.itemView.context)
-            .load(artItem.webImage?.url) // Usar art.webImage?.url
-            .override(800, 600)  // Redimensiona la imagen a 800x600, pero mantiene la proporción
-            .fitCenter()
+            .load(artItem.webImage?.url)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .skipMemoryCache(false)
             .placeholder(R.drawable.loading)
             .error(R.drawable.loading)
             .into(holder.artworkImage)
-        /*
-        Glide.with(holder.itemView.context)
-            .load("qEnlrp5MyHgLIVvrQR3HYtMBhQaLsxCmhBB15DCxX07l_rAvKqjKAXgCkgigYYxA2hGls9riG6Xfn_K_V5_GMfd_0bE") // URL de prueba
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .skipMemoryCache(true)
-            .placeholder(R.drawable.loading)
-            .error(R.drawable.loading)
-            .into(holder.artworkImage)*/
+
 
         holder.artworkName.text = artItem.title
         holder.artworkAuthor.text = artItem.author
