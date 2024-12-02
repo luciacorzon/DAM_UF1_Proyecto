@@ -28,9 +28,7 @@ import java.util.List;
 
 public class UserDAO implements DAO<User> {
 
-    // Garda nome e contrasinal
     private static final String USERS_FILE_NAME = "users.json";
-    //Garda nome e hashset de favoritos
     private static final String FAVORITES_FILE_NAME = "favorites.json";
     private Gson gson;
 
@@ -51,6 +49,7 @@ public class UserDAO implements DAO<User> {
     private File getUsersFile() {
         return new File(context.getFilesDir(), USERS_FILE_NAME);
     }
+
     public File getFavoritesFile() {
         return new File(context.getFilesDir(), FAVORITES_FILE_NAME);
     }
@@ -81,78 +80,70 @@ public class UserDAO implements DAO<User> {
         }
     }
 
-    /*FAVORITOS*/
 
     public void saveFavorite(User user, String artId) {
-        // Cargar los favoritos existentes desde el archivo
-        loadFavorites(user, FAVORITES_FILE_NAME);
+        File file = getFavoritesFile();
 
-        // Obtener el conjunto de favoritos del usuario
+        loadFavorites(user, file);
+
         HashSet<String> loadedFavorites = user.getFavorites();
 
-        // Añadir el nuevo favorito
         loadedFavorites.add(artId);
 
-        //Cargarlle a nova lista ao uusario
         user.setFavorites(loadedFavorites);
 
-        // Escribir los favoritos actualizados en el archivo
-       writeFavorites(user, FAVORITES_FILE_NAME);
+        writeFavorites(user, file);
 
         Log.d("USERDAO-FAV", "Guardado :" + user.getUsername() + artId);
-        printUserFavorites(FAVORITES_FILE_NAME);
+        printUserFavorites(file);
     }
 
 
     public void deleteFavorite(User user, String artId) {
-        // Cargar los favoritos existentes desde el archivo
-        loadFavorites(user, FAVORITES_FILE_NAME);
+        File file = getFavoritesFile();
 
-        // Obtener el conjunto de favoritos del usuario
+        loadFavorites(user, file); // Cargar favoritos del archivo
+
         HashSet<String> loadedFavorites = user.getFavorites();
+        if (loadedFavorites.contains(artId)) {
+            Log.d("!!!!!!!!", "si está ---------------------------------------");
+            var removed = loadedFavorites.remove(artId);  // Eliminar la obra de arte de los favoritos
+            Log.d("BORRADO???????", "Borrado: " + removed);
+            user.setFavorites(loadedFavorites);  // Actualizar los favoritos del usuario
 
-        // Eliminar el favorito
-        loadedFavorites.remove(artId);
+            writeFavoritesDeletion(user, file);  // Guardar los cambios en el archivo
 
-        // Escribir los favoritos actualizados en el archivo
-        writeFavorites(user, FAVORITES_FILE_NAME);
-        Log.d("USERDAO-FAV", "Borrado :" + user.getUsername() + artId);
+        }
 
-        printUserFavorites(FAVORITES_FILE_NAME);
+        Log.d("ATENCION", "imprimir despois de borrar:");
+        printUserFavorites(file); // Opcional, para depuración
     }
 
-    public void printUserFavorites(String filePath) {
-        // Obtener el archivo de favoritos
-        File file = new File(filePath);
 
-        // Verificar si el archivo existe
+
+    public void printUserFavorites(File file) {
+
         if (!file.exists()) {
-            Log.d("USERDAO", "El archivo de favoritos no existe: " + filePath);
             return;
         }
 
-        // Leer el contenido del archivo
         try (FileInputStream fis = new FileInputStream(file);
              BufferedReader reader = new BufferedReader(new InputStreamReader(fis))) {
 
-            // Leer el contenido del archivo como un StringBuilder
             StringBuilder jsonContent = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 jsonContent.append(line);
             }
 
-            // Convertir el contenido en JSON utilizando favGson para mostrar el formato
             String jsonString = jsonContent.toString();
-            Log.d("USERDAO", "Contenido del archivo de favoritos en formato JSON:\n" + jsonString);
 
-            // Si deseas deserializar y mostrar la lista de favoritos
-            List<User> users = favGson.fromJson(jsonString, new TypeToken<List<User>>(){}.getType());
+            List<User> users = favGson.fromJson(jsonString, new TypeToken<List<User>>() {
+            }.getType());
 
-            // Mostrar los favoritos de cada usuario
             for (User user : users) {
-                Log.d("USERDAO", "Usuario: " + user.getUsername());
-                Log.d("USERDAO", "Favoritos: " + user.getFavorites());
+                Log.d("printFileUsers", "Usuario: " + user.getUsername());
+                Log.d("printFileUsers", "Favoritos: " + user.getFavorites());
             }
 
         } catch (IOException e) {
@@ -162,24 +153,20 @@ public class UserDAO implements DAO<User> {
     }
 
 
-
-
-    public void loadFavorites(User user, String filePath) {
-        File file = new File(filePath);
+    public void loadFavorites(User user, File file) {
         if (!file.exists()) {
-            // Si el archivo no existe, inicializamos los favoritos vacíos
             user.setFavorites(new HashSet<>());
             return;
         }
 
         try (FileReader reader = new FileReader(file)) {
-            Type favoritesType = new TypeToken<HashSet<String>>() {}.getType();
+            Type favoritesType = new TypeToken<HashSet<String>>() {
+            }.getType();
             HashSet<String> favorites = favGson.fromJson(reader, favoritesType);
 
             if (favorites == null) {
                 favorites = new HashSet<>();
             }
-
             user.setFavorites(favorites);
 
         } catch (IOException | JsonParseException e) {
@@ -188,45 +175,120 @@ public class UserDAO implements DAO<User> {
         }
     }
 
+    public HashSet<String> returnFavoritesForUser(File file, String username) {
+
+        if (!file.exists()) {
+            return new HashSet<>();
+        }
+
+        try (FileReader reader = new FileReader(file)) {
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(User.class, new FavoritesDeserializer());
+            Gson gson = gsonBuilder.create();
+
+            Type userListType = new TypeToken<List<User>>() {
+            }.getType();
+            List<User> users = gson.fromJson(reader, userListType);
+
+            if (users == null || users.isEmpty()) {
+                return new HashSet<>();
+            }
+
+            for (User user : users) {
+                if (user.getUsername().equals(username)) {
+                    HashSet<String> favorites = user.getFavorites();
+                    return favorites;
+                }
+            }
+
+            return new HashSet<>();
+        } catch (IOException | JsonParseException e) {
+            e.printStackTrace();
+            return new HashSet<>();
+        }
+    }
 
 
-    public void writeFavorites(User user, String filePath) {
-        File file = new File(filePath);
+    public void writeFavorites(User user, File file) {
         List<User> users = new ArrayList<>();
 
         if (file.exists()) {
             try (FileReader reader = new FileReader(file)) {
-                // Usa gsonFav para deserializar los datos
-                users = favGson.fromJson(reader, new TypeToken<List<User>>(){}.getType());
+                users = favGson.fromJson(reader, new TypeToken<List<User>>() {
+                }.getType());
+                if (users == null) {
+                    users = new ArrayList<>();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-                System.err.println("Error al leer el archivo: " + e.getMessage());
+                Log.e("FAVORITES", "Error al leer el archivo: " + e.getMessage());
             }
         }
 
-        // Comprobamos si el usuario ya está en la lista, si es así, actualizamos sus favoritos
         boolean userFound = false;
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getUsername().equals(user.getUsername())) {
+                HashSet<String> combinedFavorites = new HashSet<>(users.get(i).getFavorites());
+                combinedFavorites.addAll(user.getFavorites());
+                users.get(i).setFavorites(combinedFavorites);
+                userFound = true;
+                break;
+            }
+        }
+
+        if (!userFound) {
+            users.add(user);
+        }
+
+        try (FileWriter writer = new FileWriter(file)) {
+            favGson.toJson(users, writer);
+            Log.d("UserDao", "Favoritos actualizados correctamente.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("FAVORITES", "Error al escribir favoritos: " + e.getMessage());
+        }
+    }
+
+
+    public void writeFavoritesDeletion(User user, File file) {
+        List<User> users = new ArrayList<>();
+
+        // Si el archivo de favoritos ya existe, leer los usuarios actuales.
+        if (file.exists()) {
+            try (FileReader reader = new FileReader(file)) {
+                users = favGson.fromJson(reader, new TypeToken<List<User>>() {}.getType());
+                if (users == null) {
+                    users = new ArrayList<>();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("FAVORITES", "Error al leer el archivo de favoritos: " + e.getMessage());
+            }
+        }
+
+        // Verificar si el usuario ya existe en la lista.
+        boolean userFound = false;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(user.getUsername())) {
+                // Si el usuario ya está en la lista, actualizar sus favoritos.
                 users.get(i).setFavorites(user.getFavorites());
                 userFound = true;
                 break;
             }
         }
 
-        // Si el usuario no estaba en la lista, lo añadimos
+        // Si el usuario no se encuentra en la lista, agregarlo.
         if (!userFound) {
             users.add(user);
         }
 
-        // Escribir los usuarios con los favoritos actualizados en el archivo usando gsonFav
-        try (FileWriter writer = new FileWriter(filePath)) {
-            // Usa favGson para serializar los datos
+        // Guardar los usuarios actualizados en el archivo.
+        try (FileWriter writer = new FileWriter(file)) {
             favGson.toJson(users, writer);
-            Log.d("FAVORITES", "Se han escrito los favoritos");
+            Log.d("UserDAO", "Favoritos actualizados correctamente.");
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error al escribir favoritos: " + e.getMessage());
+            Log.e("FAVORITES", "Error al escribir los favoritos: " + e.getMessage());
         }
     }
 
@@ -339,20 +401,14 @@ public class UserDAO implements DAO<User> {
     }
 
     public void printUsersFromFile() {
-        Log.d("userdao 1", "PRINTUSERSFROMFILE");
         List<User> users = getUsersList();
-        if (users.isEmpty()) {
-            Log.d("UserDAO 1.2", "No users found in the file.");
-            Log.d("userdao FIN", "PRINTUSERSFROMFILE");
-        } else {
+        if (!users.isEmpty()) {
             StringBuilder usersLog = new StringBuilder();
             for (User user : users) {
                 usersLog.append("Username: ").append(user.getUsername())
                         .append(", Password: ").append(user.getPassword()).append("\n");
 
             }
-            Log.d("UserDAO 1.2", "Users in file:\n" + usersLog.toString());
-            Log.d("userdao FIN", "PRINTUSERSFROMFILE");
         }
     }
 

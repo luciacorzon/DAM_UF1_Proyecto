@@ -51,13 +51,14 @@ class ArtworkFragment : Fragment() {
 
         // Recupera el nombre de usuario desde SharedPreferences
         val username = loadUserFromPreferences()
-        Log.d("User", "Usuario actual: $username")
+        Log.d("SharedPreferences Artwork", "Usuario actual: $username")
 
         val artId = arguments?.getString("artId")
         artId?.let {
             artViewModel.getArtworkDetails(it)
             // Verifica si esta obra está en los favoritos del usuario
             isFavorite = isArtworkFavorite(it)
+            Log.d("ISFAOVIRTE", "$isFavorite")
             updateFabIcon()
         }
 
@@ -85,15 +86,14 @@ class ArtworkFragment : Fragment() {
 
         fabFavorite.setOnClickListener {
             if (artId != null) {
-                // Si ya está en favoritos, lo eliminamos; si no, lo agregamos
                 if (isFavorite) {
                     removeArtworkFromFavorites(artId)
                     isFavorite = false
-                    Log.d("Favorites", "Obra eliminada de favoritos: $artId")
+                    Log.d("favoriteListener", "Obra eliminada de favoritos: $artId")
                 } else {
                     addArtworkToFavorites(artId)
                     isFavorite = true
-                    Log.d("Favorites", "Obra añadida a favoritos: $artId")
+                    Log.d("favoriteListener", "Obra añadida a favoritos: $artId")
                 }
                 updateFabIcon()
             }
@@ -113,31 +113,59 @@ class ArtworkFragment : Fragment() {
     private fun addArtworkToFavorites(artId: String) {
         val username = loadUserFromPreferences()
         userDAO.saveFavorite(userDAO.getUser(username), artId)
-        Log.d("Favorites", "Favoritos actualizados. Usuario: $username, Obra: $artId")
+        Log.d("addFavorite", "Favoritos actualizados. Usuario: $username, Obra: $artId")
     }
 
+    // Actualización de la eliminación de favorito:
     private fun removeArtworkFromFavorites(artId: String) {
         val username = loadUserFromPreferences()
-       userDAO.deleteFavorite(userDAO.getUser(username), artId)
-        Log.d("Favorites", "Favoritos actualizados. Usuario: $username, Obra eliminada: $artId")
+        val user = userDAO.getUser(username)
+        user.favorites = userDAO.returnFavoritesForUser(userDAO.favoritesFile, username)
+
+
+        if (user != null && user.favorites.contains(artId)) {
+            userDAO.deleteFavorite(user, artId)  // Eliminar la obra de los favoritos
+            isFavorite = false  // Actualizar el estado de favorito
+            Log.d("favoriteListener", "Obra eliminada de favoritos: $artId")
+
+            // Recargar favoritos después de la eliminación
+            user.favorites = userDAO.returnFavoritesForUser(userDAO.getFavoritesFile(), username)
+            Log.d("favoriteListener", "Favoritos después de eliminar: ${user.favorites}")
+
+            updateFabIcon()  // Actualizar el icono del FAB
+        } else {
+            Log.d("favoriteListener", "Obra no encontrada en favoritos: $artId")
+        }
     }
+
+
 
     private fun isArtworkFavorite(artId: String): Boolean {
         val username = loadUserFromPreferences()
-        val user = userDAO.getUser(username)
+        if (username == null) {
+            Log.d("Favorites", "Nombre de usuario no encontrado.")
+            return false
+        }
 
-        // Asegúrate de que el usuario no sea null
+        val user = userDAO.getUser(username)
+        Log.d("CONMPROBACION", "El usuario que está viendo el fragmento es $user")
+        //usuario ben pero lista vacia
         if (user == null) {
             Log.d("Favorites", "Usuario no encontrado: $username")
             return false
         }
 
-        var fichero = userDAO.favoritesFile.name
-        userDAO.loadFavorites(user, userDAO.favoritesFile.name)
+        // Carga los favoritos del usuario desde el archivo
+        user.favorites = userDAO.returnFavoritesForUser(userDAO.favoritesFile, username)
+        Log.d("isArtworkFavorite", "Favoritos después de cargar: ${user.favorites}")
+        userDAO.printUserFavorites(userDAO.favoritesFile)
+        // No es necesario volver a cargar los favoritos desde el archivo
         val isFavorite = user.favorites.contains(artId)
-        Log.d("Favorites", "Obra $artId en favoritos: $isFavorite y fichero: $fichero")
+        Log.d("Favorites", "Obra $artId en favoritos: $isFavorite")
+        //siempre devuelve false
         return isFavorite
     }
+
 
 
     private fun loadUserFromPreferences(): String? {
