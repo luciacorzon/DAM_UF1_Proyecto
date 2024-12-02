@@ -1,5 +1,6 @@
 package com.example.artspace
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -39,11 +40,14 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                         Toast.makeText(requireContext(), R.string.toastPassword, Toast.LENGTH_SHORT).show()
                     } else {
                         userDAO.save(user)
+                        userDAO.printUsersFromFile()
+                        saveUserToPreferences(username)
                         findNavController().navigate(R.id.action_registrationFragment_to_mainMenuFragment2)
                     }
                 } else {
                     // El usuario no existe, se registra
                     userDAO.save(user)
+                    saveUserToPreferences(username)
                     findNavController().navigate(R.id.action_registrationFragment_to_mainMenuFragment2)
                 }
             } else {
@@ -52,6 +56,13 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         }
 
         return binding.root
+    }
+
+    private fun saveUserToPreferences(username: String) {
+        val sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("username", username)
+        editor.apply()
     }
 
     override fun onDestroyView() {

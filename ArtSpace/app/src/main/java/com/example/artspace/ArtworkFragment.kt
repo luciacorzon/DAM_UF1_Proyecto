@@ -2,6 +2,7 @@ package com.example.artspace
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.example.artspace.data.javaClasses.UserDAO
 import com.example.artspace.viewmodels.ArtViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -28,6 +30,8 @@ class ArtworkFragment : Fragment() {
 
     private val artViewModel: ArtViewModel by activityViewModels()
 
+    private lateinit var userDAO: UserDAO
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,9 +46,19 @@ class ArtworkFragment : Fragment() {
         description = view.findViewById(R.id.description)
         imageView = view.findViewById(R.id.largeImage)
 
+        // Instancia el UserDAO
+        userDAO = UserDAO(requireContext())
+
+        // Recupera el nombre de usuario desde SharedPreferences
+        val username = loadUserFromPreferences()
+        Log.d("User", "Usuario actual: $username")
+
         val artId = arguments?.getString("artId")
         artId?.let {
             artViewModel.getArtworkDetails(it)
+            // Verifica si esta obra está en los favoritos del usuario
+            isFavorite = isArtworkFavorite(it)
+            updateFabIcon()
         }
 
         val unknown = getString(R.string.unknown)
@@ -69,13 +83,20 @@ class ArtworkFragment : Fragment() {
             }
         })
 
-
-        isFavorite = loadFavoriteState()
-        updateFabIcon()
         fabFavorite.setOnClickListener {
-            isFavorite = !isFavorite
-            updateFabIcon()
-            saveFavoriteState(isFavorite)
+            if (artId != null) {
+                // Si ya está en favoritos, lo eliminamos; si no, lo agregamos
+                if (isFavorite) {
+                    removeArtworkFromFavorites(artId)
+                    isFavorite = false
+                    Log.d("Favorites", "Obra eliminada de favoritos: $artId")
+                } else {
+                    addArtworkToFavorites(artId)
+                    isFavorite = true
+                    Log.d("Favorites", "Obra añadida a favoritos: $artId")
+                }
+                updateFabIcon()
+            }
         }
 
         return view
@@ -89,15 +110,40 @@ class ArtworkFragment : Fragment() {
         }
     }
 
-    private fun saveFavoriteState(isFavorite: Boolean) {
-        val sharedPreferences = requireActivity().getSharedPreferences("Favorites", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isFavorite", isFavorite)
-        editor.apply()
+    private fun addArtworkToFavorites(artId: String) {
+        val username = loadUserFromPreferences()
+        userDAO.saveFavorite(userDAO.getUser(username), artId)
+        Log.d("Favorites", "Favoritos actualizados. Usuario: $username, Obra: $artId")
     }
 
-    private fun loadFavoriteState(): Boolean {
-        val sharedPreferences = requireActivity().getSharedPreferences("Favorites", Context.MODE_PRIVATE)
-        return sharedPreferences.getBoolean("isFavorite", false)
+    private fun removeArtworkFromFavorites(artId: String) {
+        val username = loadUserFromPreferences()
+       userDAO.deleteFavorite(userDAO.getUser(username), artId)
+        Log.d("Favorites", "Favoritos actualizados. Usuario: $username, Obra eliminada: $artId")
+    }
+
+    private fun isArtworkFavorite(artId: String): Boolean {
+        val username = loadUserFromPreferences()
+        val user = userDAO.getUser(username)
+
+        // Asegúrate de que el usuario no sea null
+        if (user == null) {
+            Log.d("Favorites", "Usuario no encontrado: $username")
+            return false
+        }
+
+        var fichero = userDAO.favoritesFile.name
+        userDAO.loadFavorites(user, userDAO.favoritesFile.name)
+        val isFavorite = user.favorites.contains(artId)
+        Log.d("Favorites", "Obra $artId en favoritos: $isFavorite y fichero: $fichero")
+        return isFavorite
+    }
+
+
+    private fun loadUserFromPreferences(): String? {
+        val sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val username = sharedPreferences.getString("username", null)
+        Log.d("UserPrefs", "Usuario cargado: $username")
+        return username
     }
 }
