@@ -51,14 +51,14 @@ class MainMenuFragment : Fragment(R.layout.fragment_main_menu) {
     private fun onMenuItemClicked(item: MenuItem) {
         when (item.nameRes) {
             R.string.online_gallery -> {
-                // Navegar a la opción 1
                 findNavController().navigate(R.id.action_mainMenuFragment2_to_secondaryMenuFragment)
             }
             R.string.your_gallery -> {
-                // Navegar a la opción 2
-                findNavController().navigate(R.id.action_mainMenuFragment2_to_galleryFragment)
+                val bundle = Bundle().apply {
+                    putString("category", "favorites")
+                }
+                findNavController().navigate(R.id.action_mainMenuFragment2_to_galleryFragment, bundle)
             }
-            // Agregar más casos si es necesario
         }
     }
 

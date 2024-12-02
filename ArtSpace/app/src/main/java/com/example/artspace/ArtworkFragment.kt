@@ -148,8 +148,6 @@ class ArtworkFragment : Fragment() {
         }
 
         val user = userDAO.getUser(username)
-        Log.d("CONMPROBACION", "El usuario que está viendo el fragmento es $user")
-        //usuario ben pero lista vacia
         if (user == null) {
             Log.d("Favorites", "Usuario no encontrado: $username")
             return false

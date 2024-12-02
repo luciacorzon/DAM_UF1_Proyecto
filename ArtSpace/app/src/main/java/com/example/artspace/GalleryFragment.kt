@@ -53,6 +53,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
             getString(R.string.paint) -> artViewModel.getAllPaintings()
             getString(R.string.sculpture) -> artViewModel.getAllSculptures()
             getString(R.string.photography) -> artViewModel.getAllPhotos()
+            "favorites" -> context?.let { artViewModel.getFavoritesForUser(it) }
             else -> {
                 // Si no se pasa una categoría válida, se puede manejar de forma predeterminada
                 artViewModel.getAllPaintings() // Cargar pinturas como predeterminado
