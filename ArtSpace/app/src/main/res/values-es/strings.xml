@@ -14,8 +14,8 @@
     <string name="sculpture">ESCULTURA</string>
     <string name="paint">PINTURA</string>
     <string name="app_description">Tu galería online de arte visual</string>
-    <string name="your_gallery">Tu\ngalería</string>
-    <string name="online_gallery">Galería\nonline</string>
+    <string name="your_gallery">TU\nGALERÍA</string>
+    <string name="online_gallery">GALERÍA\nONLINE</string>
     <string name="art_name">La joven de la perla</string>
     <string name="author">Johannes Vermeer</string>
     <string name="country">Países Bajos</string>
@@ -24,5 +24,5 @@
     <string name="unknown">Desconocido</string>
     <string name="not_available">No disponible aún.</string>
     <string name="unknown_year">Año desconocido</string>
-    <string name="unknown_country">País desconocido</string>
+    <string name="unknown_country">País de producción desconocido</string>
 </resources>

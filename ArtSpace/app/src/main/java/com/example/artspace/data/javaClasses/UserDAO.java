@@ -412,6 +412,45 @@ public class UserDAO implements DAO<User> {
         }
     }
 
+    public void printFavoritesFromFile() {
+        File file = getFavoritesFile();
+
+        if (!file.exists()) {
+            Log.d("printFavoritesFromFile", "El archivo de favoritos no existe.");
+            return;
+        }
+
+        try (FileInputStream fis = new FileInputStream(file);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(fis))) {
+
+            StringBuilder jsonContent = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonContent.append(line);
+            }
+
+            // Convertir JSON a lista de usuarios
+            List<User> users = favGson.fromJson(jsonContent.toString(), new TypeToken<List<User>>() {
+            }.getType());
+
+            if (users == null || users.isEmpty()) {
+                Log.d("printFavoritesFromFile", "No hay usuarios en el archivo de favoritos.");
+                return;
+            }
+
+            // Imprimir usuarios y sus favoritos
+            for (User user : users) {
+                Log.d("printFavoritesFromFile", "Usuario: " + user.getUsername());
+                Log.d("printFavoritesFromFile", "Favoritos: " + user.getFavorites());
+            }
+
+        } catch (IOException | JsonParseException e) {
+            e.printStackTrace();
+            Log.e("printFavoritesFromFile", "Error al leer el archivo de favoritos: " + e.getMessage());
+        }
+    }
+
+
     public User getByName(String username) {
         List<User> users = getUsersList();
         for (User user : users) {

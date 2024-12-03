@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.artspace.adapter.GalleryAdapter
-import com.example.artspace.data.ArtData
 import com.example.artspace.databinding.FragmentGalleryBinding
 import com.example.artspace.decorations.BottomBorderDecoration
 import com.example.artspace.model.ArtModel

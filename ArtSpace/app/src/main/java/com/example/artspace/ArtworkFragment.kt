@@ -54,11 +54,22 @@ class ArtworkFragment : Fragment() {
         Log.d("SharedPreferences Artwork", "Usuario actual: $username")
 
         val artId = arguments?.getString("artId")
-        artId?.let {
+        Log.d("ArtworkFragment", "artId recibido: $artId")
+        val cleanedArtId = artId?.let {
+            if (it.startsWith("en-")) {
+                it.substring(3) // Elimina el prefijo "en-" (3 caracteres)
+            } else {
+                it
+            }
+        }
+
+        Log.d("ArtworkFragment", "artId limpio: $cleanedArtId")
+
+        cleanedArtId?.let {
             artViewModel.getArtworkDetails(it)
             // Verifica si esta obra está en los favoritos del usuario
             isFavorite = isArtworkFavorite(it)
-            Log.d("ISFAOVIRTE", "$isFavorite")
+            Log.d("ISFAVORITE", "$isFavorite")
             updateFabIcon()
         }
 

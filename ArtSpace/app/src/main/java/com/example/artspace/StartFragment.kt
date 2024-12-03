@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.artspace.data.javaClasses.UserDAO
 import com.example.artspace.databinding.FragmentStartBinding
 
 class StartFragment : Fragment(R.layout.fragment_start) {
@@ -20,6 +21,9 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
         binding.root.setOnClickListener {
+            var user = UserDAO(context)
+            user.printUsersFromFile()
+            user.printFavoritesFromFile()
             findNavController().navigate(R.id.action_startFragment_to_registrationFragment)
         }
 

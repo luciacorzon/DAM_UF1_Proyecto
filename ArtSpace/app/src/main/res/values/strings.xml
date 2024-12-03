@@ -13,8 +13,8 @@
     <string name="photography">PHOTOGRAPHY</string>
     <string name="sculpture">SCULPTURE</string>
     <string name="paint">PAINTING</string>
-    <string name="your_gallery">Your\ngallery</string>
-    <string name="online_gallery">Online\ngallery</string>
+    <string name="your_gallery">YOUR\nGALLERY</string>
+    <string name="online_gallery">ONLINE\nGALLERY</string>
     <string name="art_name">Girl with a pearl earring</string>
     <string name="author">Johannes Vermeer</string>
     <string name="country">The Netherlands</string>
@@ -22,6 +22,6 @@
     <string name="description">Girl with a Pearl Earring, paint…</string>
     <string name="unknown">Unknown</string>
     <string name="unknown_year">Unknown year</string>
-    <string name="unknown_country">Unknown country</string>
+    <string name="unknown_country">Unknown country of production</string>
     <string name="not_available">The description for this piece is not yet available.</string>
 </resources>

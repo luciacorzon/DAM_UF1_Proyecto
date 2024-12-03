@@ -45,8 +45,7 @@ class AdapterArtworks(
 
         //Imagen
         Glide.with(holder.itemView.context)
-            .load(art.webImage?.url) // Usar art.webImage?.url
-          //  .override(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT)
+            .load(art.webImage?.url)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.perla)
             .error(R.drawable.perla)
@@ -65,6 +64,6 @@ class AdapterArtworks(
         val builder  =AlertDialog.Builder(context)
         builder.setTitle(title)
         builder.setMessage(overview)
-        builder.show() //MIN 29:23
+        builder.show()
     }
 }
