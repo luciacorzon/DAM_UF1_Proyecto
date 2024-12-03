@@ -2,14 +2,12 @@ package com.example.artspace.adapter
 
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.artspace.MainMenuFragment
+import com.example.artspace.view.MainMenuFragment
 import com.example.artspace.R
+import com.example.artspace.databinding.ItemMainMenuBinding
 import com.example.artspace.model.MenuItem
 
 class MainMenuAdapter(
@@ -17,16 +15,15 @@ class MainMenuAdapter(
     private val dataset: List<MenuItem>,
     private val onItemClick: (MenuItem) -> Unit
 ) : RecyclerView.Adapter<MainMenuAdapter.ItemViewHolder>() {
-    class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.menuItemText)
-        val imageView: ImageView = view.findViewById(R.id.menuItemImage)
 
+    class ItemViewHolder(private val binding: ItemMainMenuBinding) : RecyclerView.ViewHolder(binding.root) {
+        val textView = binding.menuItemText
+        val imageView = binding.menuItemImage
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val adapterView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_main_menu, parent, false)
-        return ItemViewHolder(adapterView)
+        val binding = ItemMainMenuBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -35,6 +32,7 @@ class MainMenuAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val view = dataset[position]
+
         holder.textView.text = context.resources.getString(view.nameRes)
         holder.imageView.setImageResource(view.imageRes)
 

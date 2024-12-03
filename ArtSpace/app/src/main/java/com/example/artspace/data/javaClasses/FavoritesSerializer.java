@@ -14,10 +14,8 @@ public class FavoritesSerializer implements JsonSerializer<User> {
     public JsonElement serialize(User user, Type type, JsonSerializationContext context) {
         JsonObject jsonObject = new JsonObject();
 
-        // Solo incluir username
         jsonObject.addProperty("username", user.getUsername());
 
-        // Serializar el campo favorites
         JsonArray favoritesArray = new JsonArray();
         if (user.getFavorites() != null) {
             for (String favorite : user.getFavorites()) {

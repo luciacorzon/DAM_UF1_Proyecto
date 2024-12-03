@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.example.artspace.StartFragment"
+        android:name="com.example.artspace.view.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainMenuFragment2"
-        android:name="com.example.artspace.MainMenuFragment"
+        android:name="com.example.artspace.view.MainMenuFragment"
         android:label="fragment_main_menu"
         tools:layout="@layout/fragment_main_menu" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondaryMenuFragment"
-        android:name="com.example.artspace.SecondaryMenuFragment"
+        android:name="com.example.artspace.view.SecondaryMenuFragment"
         android:label="fragment_secondary_menu"
         tools:layout="@layout/fragment_secondary_menu" >
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/galleryFragment"
-        android:name="com.example.artspace.GalleryFragment"
+        android:name="com.example.artspace.view.GalleryFragment"
         android:label="fragment_gallery"
         tools:layout="@layout/fragment_gallery" >
         <argument
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/artworkFragment"
-        android:name="com.example.artspace.ArtworkFragment"
+        android:name="com.example.artspace.view.ArtworkFragment"
         android:label="fragment_artwork"
         tools:layout="@layout/fragment_artwork">
         <argument
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.example.artspace.RegistrationFragment"
+        android:name="com.example.artspace.view.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action

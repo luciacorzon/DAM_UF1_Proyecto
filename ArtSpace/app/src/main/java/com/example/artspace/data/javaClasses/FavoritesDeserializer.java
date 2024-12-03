@@ -16,10 +16,8 @@ public class FavoritesDeserializer implements JsonDeserializer<User> {
     public User deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
-        // Obtener username
         String username = jsonObject.get("username").getAsString();
 
-        // Obtener favorites y convertirlo a un HashSet
         HashSet<String> favorites = new HashSet<>();
         if (jsonObject.has("favorites") && !jsonObject.get("favorites").isJsonNull()) {
             JsonArray favoritesArray = jsonObject.getAsJsonArray("favorites");
@@ -28,7 +26,6 @@ public class FavoritesDeserializer implements JsonDeserializer<User> {
             }
         }
 
-        // Crear y devolver un User con username y favorites, dejando password como vacío o predeterminado
         return new User(username, "", favorites);
     }
 }

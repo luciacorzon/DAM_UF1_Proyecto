@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.artspace.R
-import com.example.artspace.SecondaryMenuFragment
+import com.example.artspace.view.SecondaryMenuFragment
 import com.example.artspace.model.MenuItem
 
 class SecondaryMenuAdapter(

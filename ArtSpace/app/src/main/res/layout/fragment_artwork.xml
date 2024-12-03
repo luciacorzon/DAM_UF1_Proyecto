@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkGrey"
-    tools:context=".ArtworkFragment">
+    tools:context=".view.ArtworkFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -81,7 +81,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/art_name" />
 
-                    <!-- FloatingActionButton -->
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab_favorite"
                         android:layout_width="wrap_content"
@@ -100,11 +99,6 @@
 
             </com.google.android.material.appbar.MaterialToolbar>
 
-
-            <!--<androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,10 +153,8 @@
                 android:text="@string/description"
                 android:textColor="@color/lighterGrey"
                 android:textSize="18sp" />
-            <!-- </androidx.core.widget.NestedScrollView>-->
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-<!--app:layout_constraintWidth_percent="0.8"-->
 

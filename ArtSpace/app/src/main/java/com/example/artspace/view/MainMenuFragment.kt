@@ -1,6 +1,5 @@
-package com.example.artspace
+package com.example.artspace.view
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,15 +8,14 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.artspace.R
 import com.example.artspace.adapter.MainMenuAdapter
 import com.example.artspace.databinding.FragmentMainMenuBinding
 import com.example.artspace.data.MainMenuData
-import com.example.artspace.decorations.BottomBorderDecoration
 import com.example.artspace.model.MenuItem
 
 class MainMenuFragment : Fragment(R.layout.fragment_main_menu) {
 
-    // Declaramos el binding
     private var _binding: FragmentMainMenuBinding? = null
     private val binding get() = _binding!!
 
@@ -37,10 +35,6 @@ class MainMenuFragment : Fragment(R.layout.fragment_main_menu) {
         recyclerView.adapter = MainMenuAdapter(this, dataset) { item ->
             onMenuItemClicked(item)
         }
-
-        //AÑADIDO
-        val bottomBorderDecoration = BottomBorderDecoration(Color.GREEN, 4)
-        recyclerView.addItemDecoration(bottomBorderDecoration)
 
 
         recyclerView.setHasFixedSize(true)

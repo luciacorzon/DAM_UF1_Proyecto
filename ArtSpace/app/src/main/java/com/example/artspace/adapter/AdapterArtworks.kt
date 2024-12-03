@@ -1,7 +1,6 @@
-package com.example.artspace.view
+package com.example.artspace.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +8,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.example.artspace.R
-import com.example.artspace.core.Constants
 import com.example.artspace.model.ArtModel
 
 class AdapterArtworks(
@@ -43,7 +37,7 @@ class AdapterArtworks(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val art = artList[position]
 
-        //Imagen
+        //Imaxe
         Glide.with(holder.itemView.context)
             .load(art.webImage?.url)
             .diskCacheStrategy(DiskCacheStrategy.ALL)

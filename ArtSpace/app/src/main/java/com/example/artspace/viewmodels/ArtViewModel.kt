@@ -102,8 +102,7 @@ class ArtViewModel: ViewModel() {
             return
         }
 
-        // Crea el UserDAO con el contexto adecuado
-        val userDAO = UserDAO(context) // Usa el contexto pasado como parámetro
+        val userDAO = UserDAO(context)
         val favorites = userDAO.returnFavoritesForUser(userDAO.getFavoritesFile(), username)
 
         if (favorites.isEmpty()) {
@@ -111,12 +110,10 @@ class ArtViewModel: ViewModel() {
             return
         }
 
-        // Crear una lista para almacenar las obras de arte favoritas
         val favoriteArtworks = mutableListOf<ArtModel>()
 
         viewModelScope.launch(Dispatchers.IO) {
             favorites.forEach { artId ->
-                // Llamada a la API para obtener los detalles de la obra de arte
                 val response = RetrofitClient.webService.getArtworkDetails(
                     apiKey = Constants.API_KEY,
                     artId = artId
@@ -126,21 +123,19 @@ class ArtViewModel: ViewModel() {
                     if (response.isSuccessful && response.body()?.artObject != null) {
                         val artwork = response.body()!!.artObject
 
-                        // Asegúrate de que los valores sean nulos cuando no estén disponibles
                         val artModel = ArtModel(
-                            objectNumber = artwork?.id ?: "Unknown", // Valor por defecto si id es nulo
-                            title = artwork?.title ?: "Untitled", // Título por defecto si es nulo
-                            author = artwork?.author ?: "Unknown", // Autor por defecto si es nulo
-                            webImage = artwork?.webImage?.let { WebImage(url = it.url) } ?: null, // Asumimos que la URL está en imageUrl
+                            objectNumber = artwork?.id ?: "Unknown",
+                            title = artwork?.title ?: "Untitled",
+                            author = artwork?.author ?: "Unknown",
+                            webImage = artwork?.webImage?.let { WebImage(url = it.url) } ?: null,
                             description = artwork?.description,
                             materials = null,
                             techniques = null,
                             objectTypes = null ?: emptyList()
                         )
 
-                        favoriteArtworks.add(artModel) // Agrega el ArtModel a la lista
+                        favoriteArtworks.add(artModel)
                     }
-                    // Actualizar la lista de artworks en el LiveData
                     artworksList.value = favoriteArtworks.sortedBy { it.title }
                 }
             }

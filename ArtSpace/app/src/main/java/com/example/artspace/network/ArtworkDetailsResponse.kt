@@ -9,5 +9,5 @@ data class ArtworkDetailsResponse(
     val elapsedMilliseconds: Int,
 
     @SerializedName("artObject")
-    val artObject: DetailedArtworkModel? // Aquí está el campo artObject
+    val artObject: DetailedArtworkModel?
 )

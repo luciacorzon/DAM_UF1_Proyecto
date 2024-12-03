@@ -1,4 +1,4 @@
-package com.example.artspace
+package com.example.artspace.view
 
 import android.content.Context
 import android.os.Bundle
@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.artspace.R
 import com.example.artspace.data.javaClasses.UserDAO
 import com.example.artspace.databinding.FragmentRegistrationBinding
 import com.example.artspace.model.User
-import com.example.artspace.service.UserStorage
 
 class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
@@ -40,12 +40,10 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                         Toast.makeText(requireContext(), R.string.toastPassword, Toast.LENGTH_SHORT).show()
                     } else {
                         userDAO.save(user)
-                        userDAO.printUsersFromFile()
                         saveUserToPreferences(username)
                         findNavController().navigate(R.id.action_registrationFragment_to_mainMenuFragment2)
                     }
                 } else {
-                    // El usuario no existe, se registra
                     userDAO.save(user)
                     saveUserToPreferences(username)
                     findNavController().navigate(R.id.action_registrationFragment_to_mainMenuFragment2)
