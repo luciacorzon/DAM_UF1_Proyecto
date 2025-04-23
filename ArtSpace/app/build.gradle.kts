@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
-    id("org.jetbrains.kotlin.android")
+    //id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidsvg)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.navigation.dynamic.features.fragment)
     implementation(libs.androidx.navigation.fragment.ktx)

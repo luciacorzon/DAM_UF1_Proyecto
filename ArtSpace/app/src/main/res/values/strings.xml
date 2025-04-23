@@ -4,10 +4,10 @@
     <string name="favorite_button">Favourite button</string>
     <string name="dot">·</string>
     <string name="app_description">Your online gallery for visual arts</string>
-    <string name="login">Log into your account or create one</string>
+    <string name="login">Log in</string>
     <string name="loginBtn">Log in</string>
     <string name="user_name">User name</string>
-    <string name="password">Password</string>
+    <string name="password">Your password (at least 6 characters)</string>
     <string name="toastPassword">Incorrect password</string>
     <string name="toastEmpty">Please, enter a username and a password</string>
     <string name="photography">PHOTOGRAPHY</string>
@@ -24,6 +24,13 @@
     <string name="unknown_year">Unknown year</string>
     <string name="unknown_country">Unknown country of production</string>
     <string name="not_available">The description for this piece is not yet available.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="underlined_app_name"><u>ArtSpace</u></string>
+    <string name="create_acc_message"><u>Or create a new account</u></string>
+    <string name="email_msg">Your e-mail</string>
+    <string name="anonymous_text">Log in as an anonymous user</string>
+    <string name="create_acc">Create an account</string>
+    <string name="create_acc_msg">Create your account and enjoy all of ArtSpace\'s features.</string>
+    <string name="user_already_exists">This user already exists</string>
+    <string name="error_registering">An error occurred during registration</string>
+
 </resources>

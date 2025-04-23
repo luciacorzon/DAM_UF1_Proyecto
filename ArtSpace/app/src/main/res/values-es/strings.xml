@@ -3,10 +3,10 @@
     <string name="app_name">ArtSpace</string>
     <string name="touch_screen_text">Toca la pantalla para comenzar</string>
     <string name="favorite_button">Botón de favorito</string>
-    <string name="login">Entra en tu cuenta o crea una</string>
+    <string name="login">Iniciar sesión</string>
     <string name="loginBtn">Iniciar sesión</string>
     <string name="user_name">Nombre de usuario</string>
-    <string name="password">Contraseña</string>
+    <string name="password">Tu contraseña (mín. 6 caracteres)</string>
     <string name="toastPassword">La contraseña no coincide con la registrada</string>
     <string name="toastEmpty">Por favor, ingresa un nombre de usuario y una contraseña</string>
     <string name="dot">·</string>
@@ -25,4 +25,12 @@
     <string name="not_available">No disponible aún.</string>
     <string name="unknown_year">Año desconocido</string>
     <string name="unknown_country">País de producción desconocido</string>
+    <string name="underlined_app_name"><u>ArtSpace</u></string>
+    <string name="create_acc_message"><u>O crea una nueva cuenta</u></string>
+    <string name="email_msg">Tu correo electrónico</string>
+    <string name="anonymous_text">Entra como usuario anónimo</string>
+    <string name="create_acc">Crea una cuenta</string>
+    <string name="create_acc_msg">Crea tu cuenta y disfruta de todas las funciones de ArtSpace.</string>
+    <string name="user_already_exists">El usuario ya existe</string>
+    <string name="error_registering">Error al registrar</string>
 </resources>

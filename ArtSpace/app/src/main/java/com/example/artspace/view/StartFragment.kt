@@ -25,7 +25,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
             var user = UserDAO(context)
             user.printUsersFromFile()
             user.printFavoritesFromFile()
-            findNavController().navigate(R.id.action_startFragment_to_registrationFragment)
+            findNavController().navigate(R.id.action_startFragment_to_loginFragment)
         }
 
         return binding.root

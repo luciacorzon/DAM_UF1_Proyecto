@@ -22,13 +22,12 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
-
         authManager = AuthManager()
 
-        binding.loginBtn.setOnClickListener {
-            val email = binding.userName.text.toString().trim()
+        binding.fab.setOnClickListener {
+            val email = binding.userEmail.text.toString().trim()
             val password = binding.password.text.toString().trim()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
@@ -36,35 +35,19 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                     onSuccess = {
                         saveUserToPreferences(email)
                         findNavController().navigate(R.id.action_registrationFragment_to_mainMenuFragment2)
-                        Log.d("AUTH_DEBUG", "Usuario registrado exitosamente")
                         Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT).show()
                     },
                     onFailure = { exception ->
-                        if (exception is FirebaseAuthUserCollisionException) {
-                            authManager.signInUser(email, password,
-                                onSuccess = {
-                                    saveUserToPreferences(email)
-                                    findNavController().navigate(R.id.action_registrationFragment_to_mainMenuFragment2)
-                                    Log.d("AUTH_DEBUG", "Inicio de sesión exitoso")
-                                    Toast.makeText(requireContext(), "Sesión iniciada", Toast.LENGTH_SHORT).show()
-                                },
-                                onFailure = { loginError ->
-                                    val message = loginError?.localizedMessage ?: "Error desconocido al iniciar sesión"
-                                    Log.d("AUTH_DEBUG", "Error al iniciar sesión: $message")
-                                    Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_LONG).show()
-                                }
-                            )
-                        } else {
-                            val message = exception?.localizedMessage ?: "Error desconocido al registrar"
-                            Log.d("AUTH_DEBUG", "Error al registrar: $message")
-                            Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_LONG).show()
+                        val message = when (exception) {
+                            is FirebaseAuthUserCollisionException -> getString(R.string.user_already_exists)
+                            else -> exception?.localizedMessage ?: getString(R.string.error_registering)
                         }
+                        Log.e("AUTH_DEBUG", "Error al registrar: $message", exception)
+                        Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_LONG).show()
                     }
                 )
             } else {
-                val emptyMsg = getString(R.string.toastEmpty)
-                Log.d("AUTH_DEBUG", "Campos vacíos: $emptyMsg")
-                Toast.makeText(requireContext(), emptyMsg, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.toastEmpty), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -73,9 +56,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     private fun saveUserToPreferences(email: String) {
         val sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("username", email)
-        editor.apply()
+        sharedPreferences.edit().putString("username", email).apply()
     }
 
     override fun onDestroyView() {
