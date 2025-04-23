@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_mainMenuFragment2_to_galleryFragment"
             app:destination="@id/galleryFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment2_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/secondaryMenuFragment"
@@ -81,4 +84,9 @@
             android:id="@+id/action_loginFragment_to_mainMenuFragment2"
             app:destination="@id/mainMenuFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.artspace.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>
