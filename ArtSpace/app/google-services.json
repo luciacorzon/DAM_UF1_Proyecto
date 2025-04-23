@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "747967668812",
+    "project_id": "artspace-c162c",
+    "storage_bucket": "artspace-c162c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747967668812:android:40ba5d693ba90beff2cae9",
+        "android_client_info": {
+          "package_name": "com.example.artspace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747967668812-hvjsfqcmq0rb8iaksnqmebe924m69a9a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgNcm_qcuii2ZtkMRX0zfcjGFiIJNWlVg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747967668812-hvjsfqcmq0rb8iaksnqmebe924m69a9a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

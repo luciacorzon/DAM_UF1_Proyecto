@@ -1,11 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
     namespace = "com.example.artspace"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.artspace"
@@ -39,27 +41,31 @@ android {
 }
 
 dependencies {
-    implementation("androidx.fragment:fragment-ktx:1.8.5")
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.8.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.4")
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
-    implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("com.google.code.gson:gson:2.11.0")
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.4")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.appcompat:appcompat-resources:1.7.0")
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.navigation.dynamic.features.fragment)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.material.v1120)
+    implementation(libs.androidx.recyclerview.v140)
+    implementation(libs.androidx.recyclerview.selection)
+    implementation(libs.material.v1120)
+    implementation(libs.gson)
+    implementation(libs.material.v1120)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.appcompat.v170)
+    implementation(libs.androidx.appcompat.resources)
     //ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     //Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.google.code.gson:gson:2.11.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.gson)
     //Glide
-    implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation(libs.glide)
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.analytics)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

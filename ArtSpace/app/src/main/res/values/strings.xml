@@ -24,4 +24,6 @@
     <string name="unknown_year">Unknown year</string>
     <string name="unknown_country">Unknown country of production</string>
     <string name="not_available">The description for this piece is not yet available.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
