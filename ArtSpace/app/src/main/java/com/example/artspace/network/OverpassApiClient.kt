@@ -10,4 +10,9 @@ interface OverpassApiClient {
     fun getMuseumsNearby(
         @Query("data") query: String
     ): Call<OverpassResponse>
+
+    @GET("api/interpreter")
+    fun getCulturalSitesNearby(
+        @Query("data") query: String
+    ): Call<OverpassResponse>
 }

@@ -4,4 +4,21 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+    <style name="roundedEdges">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20%</item>
+    </style>
+    <style name="TopRoundedCorners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+    <style name="CardWithShadow" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">8dp</item>
+        <item name="cardCornerRadius">0dp</item>
+        <item name="cardBackgroundColor">@color/darkGrey</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
 </resources>

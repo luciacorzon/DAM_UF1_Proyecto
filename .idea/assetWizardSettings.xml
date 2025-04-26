@@ -20,8 +20,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="d23d3d" />
-                            <entry key="outputName" value="ic_arrow_right_48" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../Descargas/arrow-right.svg" />
+                            <entry key="outputName" value="ic_arrow_down" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../Descargas/arrow-down.svg" />
                           </map>
                         </option>
                       </PersistentState>

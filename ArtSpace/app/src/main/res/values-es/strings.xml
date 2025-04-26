@@ -33,4 +33,10 @@
     <string name="create_acc_msg">Crea tu cuenta y disfruta de todas las funciones de ArtSpace.</string>
     <string name="user_already_exists">El usuario ya existe</string>
     <string name="error_registering">Error al registrar</string>
+    <string name="map_text">Lugares de interés cerca de ti</string>
+    <string name="museum">Museos</string>
+    <string name="places">Lugares</string>
+    <string name="place_name">Name of the place</string>
+    <string name="city_name">City of the place</string>
+
 </resources>
