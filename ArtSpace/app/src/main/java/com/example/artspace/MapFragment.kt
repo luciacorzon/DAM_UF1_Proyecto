@@ -53,6 +53,12 @@ class MapFragment : Fragment() {
     private lateinit var panelTitle: TextView
     private lateinit var panelDescription: TextView
 
+    private lateinit var locationOverlay: MyLocationNewOverlay
+
+    private var customLocation: GeoPoint? = null
+    private var customLocationMarker: Marker? = null
+
+
     private var selectingNewLocation = false
 
 
@@ -91,13 +97,27 @@ class MapFragment : Fragment() {
             override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
                 Log.d("MapFragment", "Single tap detected at: $p")
                 if (selectingNewLocation && p != null) {
-                    selectingNewLocation = false // Salimos del modo después de tocar
+                    customLocation = p
+
+                    customLocationMarker?.let { map.overlays.remove(it) }
+
+                    // Crear un nuevo marker
+                    val marker = Marker(map)
+                    marker.position = p
+                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                    marker.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_down)
+                    customLocationMarker = marker
+                    map.overlays.add(marker)
+
                     map.controller.setCenter(p)
                     refreshMap()
+
                     return true
                 }
 
-                // Código para cerrar info panel si no tocamos un marker
+
+
+                // Cerrar info panel
                 val hitRadiusMeters = 50.0
 
                 val touchedMarker = map.overlays.filterIsInstance<Marker>().any { marker ->
@@ -108,6 +128,7 @@ class MapFragment : Fragment() {
                 if (!touchedMarker && infoPanel.visibility == View.VISIBLE) {
                     hideInfoPanel()
                 }
+
                 return false
             }
 
@@ -125,7 +146,7 @@ class MapFragment : Fragment() {
 
 
         // Overlay para ubicación actual
-        val locationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(requireContext()), map)
+        locationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(requireContext()), map)
         locationOverlay.enableMyLocation()
         map.overlays.add(locationOverlay)
 
@@ -167,8 +188,26 @@ class MapFragment : Fragment() {
         // Cambiar localizacion usuario
         val locationPickerButton = view.findViewById<ImageButton>(R.id.locationPickerButton)
         locationPickerButton.setOnClickListener {
-            selectingNewLocation = true
+            selectingNewLocation = !selectingNewLocation
+            updateLocationPickerButtonColor(locationPickerButton)
+            if (!selectingNewLocation) {
+                customLocation = null
+
+                // Eliminar el marcador si existe
+                customLocationMarker?.let {
+                    map.overlays.remove(it)
+                    customLocationMarker = null
+                }
+
+                // Volver a la localización real
+                locationOverlay.myLocation?.let {
+                    val realLocation = GeoPoint(it.latitude, it.longitude)
+                    map.controller.animateTo(realLocation)
+                }
+                refreshMap()
+            }
         }
+
 
         return view
     }
@@ -185,7 +224,7 @@ class MapFragment : Fragment() {
         val lonMin = longitude - lonDelta
         val lonMax = longitude + lonDelta
 
-        // Construir la consulta Overpass en función de las etiquetas
+
         val query = """
         [out:json];
         (
@@ -272,22 +311,27 @@ class MapFragment : Fragment() {
     }
 
     private fun refreshMap() {
-        // Guardar el overlay de localización antes de limpiar
+        // Guardar los overlays que queremos conservar
         val locationOverlays = map.overlays.filterIsInstance<MyLocationNewOverlay>()
+        val eventsOverlays = map.overlays.filterIsInstance<MapEventsOverlay>()
 
         map.overlays.clear()
 
-        // Volver a añadir el overlay de localización
+        // Volver a añadir overlays importantes
+        map.overlays.addAll(eventsOverlays)
         map.overlays.addAll(locationOverlays)
 
+        customLocationMarker?.let { map.overlays.add(it) }
+
         if (showMuseums || showPlaces) {
-            val loc = map.mapCenter
+            val loc = customLocation ?: locationOverlay.myLocation ?: map.mapCenter
             if (showMuseums) getNearbyMuseums(loc.latitude, loc.longitude)
             if (showPlaces) getNearbyCulturalSites(loc.latitude, loc.longitude)
         } else {
             Log.d("MapFragment", "Ningún filtro activo.")
         }
     }
+
 
     private fun updateCardSelection() {
         val selectedStrokeWidth = (2 * resources.displayMetrics.density).toInt() // 2dp en px
@@ -313,11 +357,9 @@ class MapFragment : Fragment() {
         panelDescription.text = description
 
         if (infoPanel.visibility != View.VISIBLE) {
-            // Primero mover el panel fuera de pantalla
             infoPanel.translationY = infoPanel.height.toFloat()
             infoPanel.alpha = 0f
 
-            // Mostrar el panel pero totalmente transparente
             infoPanel.visibility = View.VISIBLE
 
             infoPanel.post {
@@ -349,7 +391,7 @@ class MapFragment : Fragment() {
                 }
                 MotionEvent.ACTION_MOVE -> {
                     val deltaY = event.rawY - initialY
-                    if (deltaY > 50) { // Si baja más de 50px consideramos que quiere cerrar
+                    if (deltaY > 50) {
                         isDragging = true
                     }
                     true
@@ -358,7 +400,6 @@ class MapFragment : Fragment() {
                     if (isDragging) {
                         hideInfoPanel()
                     } else {
-                        // Si no era drag, es un click normal
                         v.performClick()
                     }
                     isDragging = false
@@ -385,9 +426,14 @@ class MapFragment : Fragment() {
         }
     }
 
-
-
-
+    private fun updateLocationPickerButtonColor(button: ImageButton) {
+        if (selectingNewLocation) {
+            button.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
+        } else {
+            button.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white))
+        }
+    }
+    
     override fun onResume() {
         super.onResume()
         map.onResume()

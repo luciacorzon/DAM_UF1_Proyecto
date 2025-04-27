@@ -28,15 +28,10 @@ class MainMenuFragment : Fragment() {
     ): View {
         _binding = FragmentMainMenuBinding.inflate(inflater, container, false)
 
-        // ✅ Aquí sí está bien usar binding.mapButton
         binding.mapButton.setOnClickListener {
             try {
-                Log.d("MainMenuFragment", "Botón presionado")
-                Toast.makeText(requireContext(), "Click!", Toast.LENGTH_SHORT).show()
-
                 findNavController().navigate(R.id.action_mainMenuFragment2_to_mapFragment)
             } catch (e: Exception) {
-                Log.e("MainMenuFragment", "Error al navegar al MapFragment: ${e.message}")
                 e.printStackTrace()
             }
         }
@@ -44,8 +39,8 @@ class MainMenuFragment : Fragment() {
         val dataset = MainMenuData().LoadMenuItem()
         val recyclerView = binding.mainRecycler
 
-        val gridLayoutManager = GridLayoutManager(context, 2)
-        gridLayoutManager.orientation = RecyclerView.HORIZONTAL
+        val gridLayoutManager = GridLayoutManager(context, 1)
+        gridLayoutManager.orientation = RecyclerView.VERTICAL
         recyclerView.layoutManager = gridLayoutManager
         recyclerView.adapter = MainMenuAdapter(this, dataset) { item ->
             onMenuItemClicked(item)
@@ -58,7 +53,7 @@ class MainMenuFragment : Fragment() {
 
     private fun onMenuItemClicked(item: MenuItem) {
         when (item.nameRes) {
-            R.string.online_gallery -> {
+            R.string.discipline_category -> {
                 findNavController().navigate(R.id.action_mainMenuFragment2_to_secondaryMenuFragment)
             }
             R.string.your_gallery -> {

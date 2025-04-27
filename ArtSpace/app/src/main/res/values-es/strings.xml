@@ -38,5 +38,10 @@
     <string name="places">Lugares</string>
     <string name="place_name">Name of the place</string>
     <string name="city_name">City of the place</string>
+    <string name="popular_category">Más populares</string>
+    <string name="discipline_category">Disciplinas</string>
+    <string name="period_category">Épocas artísticas</string>
+    <string name="technique_category">Técnicas</string>
+    <string name="random_category">Obra aleatoria</string>
 
 </resources>
